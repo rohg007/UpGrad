@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         homeRecyclerView.setLayoutManager(layoutManager);
 
+        questionList = new ArrayList<Question>();
+
         apiService=StackClient.getClient().create(TaggedQuestionAPI.class);
         displayQuestionList();
     }
@@ -79,11 +81,58 @@ public class MainActivity extends AppCompatActivity
         call.enqueue(new Callback<QuestionsList>() {
             @Override
             public void onResponse(Call<QuestionsList> call, Response<QuestionsList> response) {
-                ArrayList<Question> data = new ArrayList<Question>();
-                data.addAll(response.body().getItems());
-                int dispSize = data.size();
+                questionList.addAll(response.body().getItems());
+                int dispSize = questionList.size();
                 Log.v(LOG_TAG,Integer.toString(dispSize));
-                homeRecyclerView.setAdapter(new QuestionsAdapter(data,getApplicationContext()));
+                homeRecyclerView.setAdapter(new QuestionsAdapter(questionList,getApplicationContext()));
+            }
+
+            @Override
+            public void onFailure(Call<QuestionsList> call, Throwable t) {
+                Log.e(LOG_TAG,"Error fetching Questions List");
+            }
+        });
+
+        Call<QuestionsList> call1 = apiService.fetchQuestions("java");
+        call1.enqueue(new Callback<QuestionsList>() {
+            @Override
+            public void onResponse(Call<QuestionsList> call, Response<QuestionsList> response) {
+                questionList.addAll(response.body().getItems());
+                int dispSize = questionList.size();
+                Log.v(LOG_TAG,Integer.toString(dispSize));
+                homeRecyclerView.setAdapter(new QuestionsAdapter(questionList,getApplicationContext()));
+            }
+
+            @Override
+            public void onFailure(Call<QuestionsList> call, Throwable t) {
+                Log.e(LOG_TAG,"Error fetching Questions List");
+            }
+        });
+
+        Call<QuestionsList> call2 = apiService.fetchQuestions("c");
+        call2.enqueue(new Callback<QuestionsList>() {
+            @Override
+            public void onResponse(Call<QuestionsList> call, Response<QuestionsList> response) {
+                questionList.addAll(response.body().getItems());
+                int dispSize = questionList.size();
+                Log.v(LOG_TAG,Integer.toString(dispSize));
+                homeRecyclerView.setAdapter(new QuestionsAdapter(questionList,getApplicationContext()));
+            }
+
+            @Override
+            public void onFailure(Call<QuestionsList> call, Throwable t) {
+                Log.e(LOG_TAG,"Error fetching Questions List");
+            }
+        });
+
+        Call<QuestionsList> call3 = apiService.fetchQuestions("c#");
+        call3.enqueue(new Callback<QuestionsList>() {
+            @Override
+            public void onResponse(Call<QuestionsList> call, Response<QuestionsList> response) {
+                questionList.addAll(response.body().getItems());
+                int dispSize = questionList.size();
+                Log.v(LOG_TAG,Integer.toString(dispSize));
+                homeRecyclerView.setAdapter(new QuestionsAdapter(questionList,getApplicationContext()));
             }
 
             @Override

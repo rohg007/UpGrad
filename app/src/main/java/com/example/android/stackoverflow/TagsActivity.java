@@ -37,8 +37,6 @@ public class TagsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tags);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         selectedTags = findViewById(R.id.selected_tag_rv);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
