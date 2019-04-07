@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void displayQuestionList(){
-        Call<QuestionsList> call = apiService.fetchQuestions("android");
+        Call<QuestionsList> call = apiService.fetchQuestions("{android}");
         call.enqueue(new Callback<QuestionsList>() {
             @Override
             public void onResponse(Call<QuestionsList> call, Response<QuestionsList> response) {
@@ -169,6 +169,11 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        if(id == R.id.action_login){
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
